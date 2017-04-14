@@ -1,0 +1,51 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda' //lambda
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
+    defaultConfig {
+        applicationId "com.wongxd.jueduimeizi"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //lamda使用
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:24.2.1'
+
+
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1' //rx
+    compile 'io.reactivex.rxjava2:rxjava:2.0.8' //rx
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar' //6.0权限
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.orhanobut:logger:1.15'//未设置混淆
+    compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'//未设置混淆
+    compile 'com.jude:swipebackhelper:3.1.2'
+    compile 'org.jsoup:jsoup:1.9.2'
+}

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">W-绝对领域</string>
+
+    <string name="menu_home_text">首页</string>
+    <string name="menu_favorite_text">收藏</string>
+    <string name="menu_imgs_text">藏图</string>
+    <string name="menu_setting_text">设置</string>
+    <string name="menu_about_text">关于</string>
+</resources>
