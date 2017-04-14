@@ -7,8 +7,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.wongxd.jueduimeizi.Conf.UrlConf;
 import com.wongxd.jueduimeizi.custom.QQSlideMenu.CoordinatorMenu;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,6 +81,49 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        Observable.create((ObservableOnSubscribe<List<String>>) e -> {
+
+            List<String> urlList = new ArrayList<String>();
+            Document doc = Jsoup.connect(UrlConf.HOME).get();
+
+            Elements s = doc.select("div.main-content");
+            Elements ss = s.select("div#postlist");
+            Elements sss = ss.select("div.pin-data clx");
+            Elements ssss = sss.select("a");
+            for (int i = 0; i < ssss.size(); i++) {
+                String url = sss.get(i).attr("href");
+                if (!url.equals("")) {
+                    urlList.add(url);
+                }
+            }
+            e.onNext(urlList);
+
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<String> strings) {
+                        Logger.d(strings);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
 
     }
