@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wongxd.jueduimeizi.custom.QQSlideMenu.CoordinatorMenu xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wongxd.w_gank.custom.QQSlideMenu.CoordinatorMenu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contentPanel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wongxd.jueduimeizi.MainActivity">
+    tools:context="com.wongxd.w_gank.MainActivity">
 
 
     <LinearLayout
@@ -16,7 +16,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="#9ED5E4" />
+            android:background="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -111,14 +111,16 @@
     </LinearLayout>
 
 
-    <com.wongxd.jueduimeizi.custom.QQSlideMenu.MainView
+    <com.wongxd.w_gank.custom.QQSlideMenu.MainView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--填充状态栏-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@color/colorPrimaryDark" />
 
-    </com.wongxd.jueduimeizi.custom.QQSlideMenu.MainView>
-</com.wongxd.jueduimeizi.custom.QQSlideMenu.CoordinatorMenu>
+
+    </com.wongxd.w_gank.custom.QQSlideMenu.MainView>
+</com.wongxd.w_gank.custom.QQSlideMenu.CoordinatorMenu>
