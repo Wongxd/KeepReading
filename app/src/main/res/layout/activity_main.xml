@@ -1,126 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.wongxd.w_gank.custom.QQSlideMenu.CoordinatorMenu xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/contentPanel"
+    android:id="@+id/drawer_aty_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wongxd.w_gank.MainActivity">
-
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
         android:orientation="vertical">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_aty_main"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="?attr/colorPrimary"
+            app:contentInsetStart="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <ImageView
+                    android:id="@+id/iv_menu"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_portrait" />
+
+                <com.wongxd.w_gank.custom.fadeinTextView.FadingTextView
+                    android:id="@+id/tv_title_aty_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/ib_date_picker_aty_main"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ic_today_white_36dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <FrameLayout
+            android:id="@+id/fl_content_aty_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="0.5dp"
+            android:layout_weight="1" />
+
+
+        <!--bootm-->
         <View
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@color/colorPrimary" />
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/wheat" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="40dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/milk" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/menu_home_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/menu_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/basketball" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/menu_favorite_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/menu_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/book" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/menu_imgs_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/menu_text_size" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/book" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="@string/menu_about_text"
-                android:textColor="@color/colorAccent"
-                android:textSize="@dimen/menu_text_size" />
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <com.wongxd.w_gank.custom.QQSlideMenu.MainView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <!--填充状态栏-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="45dp"
+            android:orientation="horizontal">
 
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <!--按钮-->
+                <LinearLayout
+                    android:id="@+id/ll_bottom_android"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
 
-    </com.wongxd.w_gank.custom.QQSlideMenu.MainView>
-</com.wongxd.w_gank.custom.QQSlideMenu.CoordinatorMenu>
+                    <com.wongxd.w_gank.custom.switchIconView.SwitchIconView
+                        android:id="@+id/si_bottom_android"
+                        android:layout_width="35dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        app:si_disabled_alpha="0.5"
+                        app:si_disabled_color="@color/gray"
+                        app:si_tint_color="@color/colorPrimary"
+                        app:srcCompat="@drawable/android" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="35dp"
+                android:background="@color/wheat" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <!--按钮-->
+                <LinearLayout
+                    android:id="@+id/ll_bottom_meizi"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <com.wongxd.w_gank.custom.switchIconView.SwitchIconView
+                        android:id="@+id/si_bottom_meizi"
+                        android:layout_width="35dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        app:si_disabled_alpha="0.5"
+                        app:si_disabled_color="@color/gray"
+                        app:si_tint_color="@color/colorPrimary"
+                        app:srcCompat="@drawable/meizi" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.wongxd.w_gank.custom.arcNavigationView.ArcNavigationView
+        android:id="@+id/nav_aty_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        app:arc_cropDirection="cropInside"
+        app:arc_width="100dp"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+
+</android.support.v4.widget.DrawerLayout>

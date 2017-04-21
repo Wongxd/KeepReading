@@ -1,10 +1,19 @@
 package com.wongxd.w_gank.base;
 
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.swipbackhelper.SwipeListener;
+import com.wongxd.w_gank.base.broadcastReceiver.NetCheckReceive;
+import com.wongxd.w_gank.base.rx.RxBus;
+import com.wongxd.w_gank.base.rx.RxEventCodeType;
+import com.wongxd.w_gank.utils.ToastUtil;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 /**
@@ -12,12 +21,13 @@ import com.jude.swipbackhelper.SwipeListener;
  */
 
 public class BaseSwipeActivity extends BaseActivity {
+    private NetCheckReceive netCheckReceive;//检查网络状态的广播
+    private Observable<String> netObservable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SwipeBackHelper.onCreate(this);
-
 
 
 //        如果需要可在SwipeBackHelper.onCreate()之后进行如下参数设置：
@@ -46,6 +56,20 @@ public class BaseSwipeActivity extends BaseActivity {
 
                     }
                 });
+
+
+        //注册检查网络的广播
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        netCheckReceive = new NetCheckReceive();
+        this.registerReceiver(netCheckReceive, filter);
+
+        netObservable = RxBus.getDefault().toObservable(RxEventCodeType.NETEVENT, String.class);
+        netObservable.observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    if (!s.equals("WIFI连接")) {
+                        ToastUtil.Toast(getApplicationContext(), s);
+                    }
+                });
     }
 
     @Override
@@ -56,6 +80,8 @@ public class BaseSwipeActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        netObservable.unsubscribeOn(AndroidSchedulers.mainThread());
+        this.unregisterReceiver(netCheckReceive);
         super.onDestroy();
         SwipeBackHelper.onDestroy(this);
     }

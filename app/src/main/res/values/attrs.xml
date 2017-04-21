@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <!--SwitchIconView-->
+  <!--带角标的SwitchIconView-->
   <declare-styleable name="SwitchIconView">
     <attr name="si_tint_color" format="color"/>
     <attr name="si_animation_duration" format="integer"/>
@@ -8,7 +8,25 @@
     <attr name="si_disabled_color" format="color"/>
     <attr name="si_enabled" format="boolean"/>
     <attr name="si_no_dash" format="boolean"/>
+    <attr name="circleBgColor" format="color" />
+    <attr name="textColor" format="color" />
+    <attr name="circleSize" format="dimension" />
   </declare-styleable>
 
+
+
+  <declare-styleable name="fading_text_view">
+    <attr name="texts" format="string" />
+    <attr name="timeout" format="integer" />
+  </declare-styleable>
+
+
+  <declare-styleable name="ArcDrawer">
+    <attr name="arc_width" format="dimension"/>
+    <attr name="arc_cropDirection" format="enum">
+      <enum name="cropInside" value="0"/>
+      <enum name="cropOutside" value="1"/>
+    </attr>
+  </declare-styleable>
 
 </resources>

@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/W_Gank.iml" filepath="$PROJECT_DIR$/W_Gank.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android_floating_action_button/android_floating_action_button.iml" filepath="$PROJECT_DIR$/android_floating_action_button/android_floating_action_button.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libary/libary.iml" filepath="$PROJECT_DIR$/libary/libary.iml" />
     </modules>
   </component>
 </project>

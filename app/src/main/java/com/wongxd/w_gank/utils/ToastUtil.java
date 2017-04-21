@@ -14,7 +14,7 @@ public class ToastUtil {
         if (toast == null) {
             synchronized (ToastUtil.class) {
                 if (toast == null) {
-                    toast = Toast.makeText(c, msg, Toast.LENGTH_SHORT);
+                    toast = Toast.makeText(c, msg, Toast.LENGTH_LONG);
                     toast.show();
                 }
             }

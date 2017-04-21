@@ -15,18 +15,20 @@ public class AcacheUtil {
     public static final String StringCache = "string";
     public static final String JsonCache = "json";
     public static final String ZhiHuCache = "zhihu";
+    public static final String GankAndroidCache = "gank_android";
+    public static final String GankMeiZiCache = "gank_meizi";
 
 
     /**
      * 获取acache实例
+     *
      * @param c
      * @param cacheDirName
      * @return
      */
-    public static  ACache getDefault(Context c,String cacheDirName){
+    public static ACache getDefault(Context c, String cacheDirName) {
         return ACache.get(getDiskCacheDir(c, cacheDirName));
     }
-
 
 
     /**

@@ -5,32 +5,120 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import com.jude.swipbackhelper.SwipeBackHelper;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.wongxd.w_gank.custom.QQSlideMenu.CoordinatorMenu;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wongxd.w_gank.base.BasePresenterActivity;
+import com.wongxd.w_gank.base.rx.RxEventCodeType;
+import com.wongxd.w_gank.presenter.aty.ZhiHuActivity;
+import com.wongxd.w_gank.presenter.fgt.GankAndroidFragment;
+import com.wongxd.w_gank.presenter.fgt.GankMeiZiFragment;
+import com.wongxd.w_gank.utils.SystemUtils;
+import com.wongxd.w_gank.utils.ToastUtil;
+import com.wongxd.w_gank.vu.MainVu;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class MainActivity extends BasePresenterActivity<MainVu> {
 
     private AppCompatActivity thisActivity;
     private Context mContext;
+    private FragmentManager mFragmentManager;
+    private Fragment mCurrentFragment;
+    private Fragment gankAndroidFragment;
+    private GankMeiZiFragment gankMeiZiFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void onBindVu() {
+        super.onBindVu();
         thisActivity = this;
         mContext = this.getApplicationContext();
 
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(false)
+                .setSwipeRelateEnable(true);
+
+
+        initPremission();
+
+        initFragment();
+        vu.setIbDatePickerAtyMainListener(v -> {
+            Calendar now = Calendar.getInstance();
+            DatePickerDialog datePickerDialog = DatePickerDialog
+                    .newInstance((view1, year, monthOfYear, dayOfMonth) -> {
+                                int tempMonth = monthOfYear + 1;
+                                String month = tempMonth < 10 ? "0" + tempMonth : tempMonth + "";
+                                String day = dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth + "";
+                                bus.post(RxEventCodeType.DATEPICKER_CLICK, year + month + day);
+                            },
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+            datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
+            datePickerDialog.show(getFragmentManager(), "Datepickerdialog");
+        });
+
+        initBus();
+    }
+
+    private void initBus() {
+        disposableList.add(bus.toObservable(RxEventCodeType.DRAWLAYOUT_ITEM_CLICK, Integer.class).subscribe(integer -> {
+            switch (integer) {
+                case R.id.menu_nav_zhihu:
+                    startActivity(new Intent(thisActivity, ZhiHuActivity.class));
+                    break;
+                case R.id.menu_nav_share:
+                    SystemUtils.share(thisActivity, thisActivity.getString(R.string.app_name), "分享");
+                    break;
+            }
+        }));
+    }
+
+    private void initFragment() {
+        mFragmentManager = getSupportFragmentManager();
+        gankAndroidFragment = new GankAndroidFragment();
+        gankMeiZiFragment = new GankMeiZiFragment();
+        mCurrentFragment = gankAndroidFragment;
+        mFragmentManager.beginTransaction().add(R.id.fl_content_aty_main, mCurrentFragment, "android").commit();
+        vu.setFragmentSwitchListener((containerId, pos) -> {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            Fragment fragment = null;
+            switch (pos) {
+                case 1://android
+                    fragment = gankAndroidFragment;
+                    break;
+                case 2:
+                    fragment = gankMeiZiFragment;
+                    break;
+            }
+
+            if (mCurrentFragment != null) {
+                fragmentTransaction.hide(mCurrentFragment);
+            }
+            if (fragment.isAdded()) {
+                fragmentTransaction.show(fragment);
+            } else {
+                fragmentTransaction.add(containerId, fragment, "meizi");
+            }
+            fragmentTransaction.commit();
+            mCurrentFragment = fragment;
+        });
+    }
+
+    private void initPremission() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions
                 .requestEach(Manifest.permission.CAMERA,
-                        Manifest.permission.READ_PHONE_STATE)
+                        Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(permission -> { // will emit 2 Permission objects
                     if (permission.granted) {
                         // `permission.name` is granted !
@@ -43,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
                         // Need to go to the settings
 
                         AlertDialog dialog = new AlertDialog.Builder(thisActivity)
-                                .setMessage(permission.name+"\n权限被禁止，请到 设置-权限 中给予")
-                                .setPositiveButton("确定",new DialogInterface.OnClickListener() {
+                                .setMessage(permission.name + "\n权限被禁止，请到 设置-权限 中给予")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -57,43 +145,21 @@ public class MainActivity extends AppCompatActivity {
                         dialog.show();
                     }
                 });
-
-
-
-
-        // 经测试在代码里直接声明透明状态栏更有效
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-        }
-
-
-        CoordinatorMenu coordinatorMenu = (CoordinatorMenu) findViewById(R.id.contentPanel);
-        coordinatorMenu.setOnDragStateChangeListener(new CoordinatorMenu.onDragStateChangeListener() {
-            @Override
-            public void onOpen() {
-
-            }
-
-            @Override
-            public void onClose() {
-
-            }
-
-            @Override
-            public void Draging(float fraction) {
-
-            }
-        });
-
-
-
-
-
     }
 
+    private long lastBackTime = 0;
 
-
+    @Override
+    public boolean handleBackPressed() {
+        long thisBackTime = System.currentTimeMillis();
+        if (thisBackTime - lastBackTime < 800) {
+            return super.handleBackPressed();
+        } else {
+            ToastUtil.Toast(mContext, "再次点击，退出程序。");
+        }
+        lastBackTime = System.currentTimeMillis();
+        return !super.handleBackPressed();
+    }
 
     /**
      * 设置添加屏幕的背景透明度
@@ -105,4 +171,17 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setAttributes(lp);
 
     }
+
+    @Override
+    protected Class<MainVu> getVuClass() {
+        return MainVu.class;
+    }
+
+
+    @Override
+    protected void onDestroyVu() {
+        super.onDestroyVu();
+    }
+
+
 }

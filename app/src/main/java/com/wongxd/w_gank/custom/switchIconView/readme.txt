@@ -40,3 +40,11 @@ Public methods:
   public void switchState();
 
   public void switchState(boolean animate);
+
+
+  添加角标功能
+  setNotificationNumber()
+
+  circleBgColor 角标背景色
+  textColor     角标字体颜色
+  circleSize    角标大小

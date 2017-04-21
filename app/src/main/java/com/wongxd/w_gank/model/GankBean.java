@@ -1,23 +1,22 @@
 package com.wongxd.w_gank.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by wxd1 on 2017/4/18.
  */
 
-public class GankBean {
+public class GankBean implements Serializable {
 
 
     /**
-     * category : ["iOS","Android","瞎推荐","拓展资源","福利","休息视频"]
      * error : false
-     * results : {"Android":[{"_id":"56cc6d23421aa95caa707a69","createdAt":"2015-08-06T07:15:52.65Z","desc":"类似Link Bubble的悬浮式操作设计","publishedAt":"2015-08-07T03:57:48.45Z","type":"Android","url":"https://github.com/recruit-lifestyle/FloatingView","used":true,"who":"mthli"},{"_id":"56cc6d23421aa95caa707a6f","createdAt":"2015-08-07T01:33:07.815Z","desc":"Android开发中，有哪些让你觉得相见恨晚的方法、类或接口？","publishedAt":"2015-08-07T03:57:47.317Z","type":"Android","url":"http://www.zhihu.com/question/33636939","used":true,"who":"lxxself"},{"_id":"56cc6d23421aa95caa707c69","createdAt":"2015-08-06T15:00:38.350Z","desc":"使用注解来处理Activity的状态恢复","publishedAt":"2015-08-07T03:57:48.76Z","type":"Android","url":"https://github.com/tom91136/Akatsuki","used":true,"who":"鲍永章"},{"_id":"56cc6d23421aa95caa707c71","createdAt":"2015-08-07T02:19:44.342Z","desc":"Android Lollipop联系人之PinnedListView简单使用","publishedAt":"2015-08-07T03:57:48.142Z","type":"Android","url":"https://git.oschina.net/way/PinnedHeaderListView","used":true,"who":"有时放纵"},{"_id":"56cc6d23421aa95caa707c78","createdAt":"2015-08-06T14:58:28.171Z","desc":"图片可以自动滚动的ImageView，可以实现视差效果。","publishedAt":"2015-08-07T03:57:48.73Z","type":"Android","url":"https://github.com/Q42/AndroidScrollingImageView","used":true,"who":"鲍永章"}],"iOS":[{"_id":"56cc6d1d421aa95caa707769","createdAt":"2015-08-07T01:32:51.588Z","desc":"LLVM 简介","publishedAt":"2015-08-07T03:57:48.70Z","type":"iOS","url":"http://adriansampson.net/blog/llvm.html","used":true,"who":"CallMeWhy"},{"_id":"56cc6d23421aa95caa707a6b","createdAt":"2015-08-06T14:45:18.733Z","desc":"基于TextKit的UILabel，支持超链接和自定义表达式。","publishedAt":"2015-08-07T03:57:47.242Z","type":"iOS","url":"https://github.com/molon/MLLabel","used":true,"who":"鲍永章"},{"_id":"56cc6d23421aa95caa707bea","createdAt":"2015-08-07T01:33:30.871Z","desc":"Swift 和 C 函数","publishedAt":"2015-08-07T03:57:48.83Z","type":"iOS","url":"http://chris.eidhof.nl/posts/swift-c-interop.html","used":true,"who":"CallMeWhy"},{"_id":"56cc6d23421aa95caa707c77","createdAt":"2015-08-07T01:34:00.984Z","desc":"Arrays Linked Lists 和性能比较","publishedAt":"2015-08-07T03:57:48.174Z","type":"iOS","url":"http://airspeedvelocity.net/2015/08/03/arrays-linked-lists-and-performance/","used":true,"who":"CallMeWhy"}],"休息视频":[{"_id":"56cc6d23421aa95caa707c68","createdAt":"2015-08-06T13:06:17.211Z","desc":"听到就心情大好的歌，简直妖魔哈哈哈哈哈，原地址\nhttp://v.youku.com/v_show/id_XMTQxODA5NDM2.html","publishedAt":"2015-08-07T03:57:48.104Z","type":"休息视频","url":"http://www.zhihu.com/question/21778055/answer/19905413?utm_source=weibo&utm_medium=weibo_share&utm_content=share_answer&utm_campaign=share_button","used":true,"who":"lxxself"}],"拓展资源":[{"_id":"56cc6d23421aa95caa707bdf","createdAt":"2015-08-07T01:36:06.932Z","desc":"Display GitHub code in tree format","publishedAt":"2015-08-07T03:57:48.81Z","type":"拓展资源","url":"https://github.com/buunguyen/octotree","used":true,"who":"lxxself"}],"瞎推荐":[{"_id":"56cc6d23421aa95caa707bd0","createdAt":"2015-08-07T01:52:30.267Z","desc":"程序员的电台FmM，这个页面chrome插件有问题啊哭，我写了回删除不了啊","publishedAt":"2015-08-07T03:57:48.84Z","type":"瞎推荐","url":"https://cmd.fm/","used":true,"who":"lxxself"}],"福利":[{"_id":"56cc6d23421aa95caa707c52","createdAt":"2015-08-07T01:21:06.112Z","desc":"8.7\u2014\u2014（1）","publishedAt":"2015-08-07T03:57:47.310Z","type":"福利","url":"http://ww2.sinaimg.cn/large/7a8aed7bgw1eutscfcqtcj20dw0i0q4l.jpg","used":true,"who":"张涵宇"},{"_id":"56cc6d23421aa95caa707c56","createdAt":"2015-08-07T01:21:33.518Z","desc":"8.7\u2014\u2014（2）","publishedAt":"2015-08-07T03:57:47.229Z","type":"福利","url":"http://ww2.sinaimg.cn/large/7a8aed7bgw1eutsd0pgiwj20go0p0djn.jpg","used":true,"who":"张涵宇"}]}
+     * results : [{"_id":"58f5d527421aa9544b77400f","createdAt":"2017-04-18T16:58:15.238Z","desc":"LingoRecord is a better recorder for Android, you can easily process pcm data from it.","publishedAt":"2017-04-19T11:44:51.925Z","source":"web","type":"Android","url":"https://github.com/lingochamp/LingoRecorder","used":true,"who":"Echo"},{"_id":"58f5e7d5421aa954511ebeba","createdAt":"2017-04-18T18:17:57.834Z","desc":"Understanding Context In Android Application","publishedAt":"2017-04-19T11:44:51.925Z","source":"web","type":"Android","url":"https://blog.mindorks.com/understanding-context-in-android-application-330913e32514","used":true,"who":"AMIT SHEKHAR"},{"_id":"58f5ecd7421aa954511ebebb","createdAt":"2017-04-18T18:39:19.747Z","desc":"仿iOS输入法点击输入框以外区域 自动隐藏软键盘","images":["http://img.gank.io/fa038d13-9cf7-4ed4-8a74-17b40c7c3a52"],"publishedAt":"2017-04-19T11:44:51.925Z","source":"web","type":"Android","url":"https://github.com/yingLanNull/HideKeyboard","used":true,"who":"yingLan"},{"_id":"58f60cc8421aa9544b774014","createdAt":"2017-04-18T20:55:36.879Z","desc":"可自定义动画的卡片切换视图","images":["http://img.gank.io/b9db68a2-aea5-412e-9897-8260ef2b592c"],"publishedAt":"2017-04-19T11:44:51.925Z","source":"web","type":"Android","url":"https://github.com/BakerJQ/Android-InfiniteCards","used":true,"who":"BakerJ"},{"_id":"58f62d3a421aa9544b774017","createdAt":"2017-04-18T23:14:02.368Z","desc":"实现仿 Retrofit 的跳转路由","images":["http://img.gank.io/ef0992b9-ed3a-412e-9d7a-4779e96bde99"],"publishedAt":"2017-04-19T11:44:51.925Z","source":"web","type":"Android","url":"https://github.com/nekocode/Meepo","used":true,"who":"nekocode"},{"_id":"58f6bd3b421aa9544ed88978","createdAt":"2017-04-19T09:28:27.377Z","desc":"Facebook推出的可声明式构建高效UI的库。","publishedAt":"2017-04-19T11:44:51.925Z","source":"web","type":"Android","url":"https://github.com/facebook/litho","used":true,"who":"JohnTsai"},{"_id":"58f6d891421aa9544825f8af","createdAt":"2017-04-19T11:25:05.920Z","desc":"非常规矩的一款 Bottom 导航效果组件","images":["http://img.gank.io/ca1b2f29-39f6-4e95-8300-f7984d2042ca"],"publishedAt":"2017-04-19T11:44:51.925Z","source":"chrome","type":"Android","url":"https://github.com/adib2149/BottomNavBar","used":true,"who":"代码家"},{"_id":"58f6d8cb421aa9544ed8897d","createdAt":"2017-04-19T11:26:03.655Z","desc":"跟随手势滑动，显示隐藏标题栏、底部导航栏及悬浮按钮的 Android Behavior Library。","images":["http://img.gank.io/c728c395-0574-4dab-8496-cd785b20474a"],"publishedAt":"2017-04-19T11:44:51.925Z","source":"chrome","type":"Android","url":"https://github.com/Lauzy/LBehavior","used":true,"who":"allen"},{"_id":"58f57e35421aa9544b774003","createdAt":"2017-04-18T10:47:17.437Z","desc":"Android 多边形绘制组件，做的很漂亮哦~ 用来做动态图表会很有帮助，同时可以学习他的实现。","images":["http://img.gank.io/5b728c1a-5685-4517-adc9-e1590e462097"],"publishedAt":"2017-04-18T11:34:29.203Z","source":"chrome","type":"Android","url":"https://github.com/stkent/PolygonDrawingUtil","used":true,"who":"代码家"},{"_id":"58f57e9f421aa9544b774005","createdAt":"2017-04-18T10:49:03.981Z","desc":"RxJava3 预览版 Demo","publishedAt":"2017-04-18T11:34:29.203Z","source":"chrome","type":"Android","url":"https://github.com/akarnokd/RxJava3-preview","used":true,"who":"带马甲"}]
      */
 
     private boolean error;
-    private ResultsBean results;
-    private List<String> category;
+    private List<ResultsBean> results;
 
     public boolean isError() {
         return error;
@@ -27,548 +26,117 @@ public class GankBean {
         this.error = error;
     }
 
-    public ResultsBean getResults() {
+    public List<ResultsBean> getResults() {
         return results;
     }
 
-    public void setResults(ResultsBean results) {
+    public void setResults(List<ResultsBean> results) {
         this.results = results;
     }
 
-    public List<String> getCategory() {
-        return category;
-    }
+    public static class ResultsBean implements Serializable{
+        /**
+         * _id : 58f5d527421aa9544b77400f
+         * createdAt : 2017-04-18T16:58:15.238Z
+         * desc : LingoRecord is a better recorder for Android, you can easily process pcm data from it.
+         * publishedAt : 2017-04-19T11:44:51.925Z
+         * source : web
+         * type : Android
+         * url : https://github.com/lingochamp/LingoRecorder
+         * used : true
+         * who : Echo
+         * images : ["http://img.gank.io/fa038d13-9cf7-4ed4-8a74-17b40c7c3a52"]
+         */
 
-    public void setCategory(List<String> category) {
-        this.category = category;
-    }
+        private String _id;
+        private String createdAt;
+        private String desc;
+        private String publishedAt;
+        private String source;
+        private String type;
+        private String url;
+        private boolean used;
+        private String who;
+        private List<String> images;
 
-    public static class ResultsBean {
-        private List<AndroidBean> Android;
-        private List<IOSBean> iOS;
-        private List<休息视频Bean> 休息视频;
-        private List<拓展资源Bean> 拓展资源;
-        private List<瞎推荐Bean> 瞎推荐;
-        private List<福利Bean> 福利;
-
-        public List<AndroidBean> getAndroid() {
-            return Android;
+        public String get_id() {
+            return _id;
         }
 
-        public void setAndroid(List<AndroidBean> Android) {
-            this.Android = Android;
+        public void set_id(String _id) {
+            this._id = _id;
         }
 
-        public List<IOSBean> getIOS() {
-            return iOS;
+        public String getCreatedAt() {
+            return createdAt;
         }
 
-        public void setIOS(List<IOSBean> iOS) {
-            this.iOS = iOS;
+        public void setCreatedAt(String createdAt) {
+            this.createdAt = createdAt;
         }
 
-        public List<休息视频Bean> get休息视频() {
-            return 休息视频;
+        public String getDesc() {
+            return desc;
         }
 
-        public void set休息视频(List<休息视频Bean> 休息视频) {
-            this.休息视频 = 休息视频;
+        public void setDesc(String desc) {
+            this.desc = desc;
         }
 
-        public List<拓展资源Bean> get拓展资源() {
-            return 拓展资源;
+        public String getPublishedAt() {
+            return publishedAt;
         }
 
-        public void set拓展资源(List<拓展资源Bean> 拓展资源) {
-            this.拓展资源 = 拓展资源;
+        public void setPublishedAt(String publishedAt) {
+            this.publishedAt = publishedAt;
         }
 
-        public List<瞎推荐Bean> get瞎推荐() {
-            return 瞎推荐;
+        public String getSource() {
+            return source;
         }
 
-        public void set瞎推荐(List<瞎推荐Bean> 瞎推荐) {
-            this.瞎推荐 = 瞎推荐;
+        public void setSource(String source) {
+            this.source = source;
         }
 
-        public List<福利Bean> get福利() {
-            return 福利;
+        public String getType() {
+            return type;
         }
 
-        public void set福利(List<福利Bean> 福利) {
-            this.福利 = 福利;
+        public void setType(String type) {
+            this.type = type;
         }
 
-        public static class AndroidBean {
-            /**
-             * _id : 56cc6d23421aa95caa707a69
-             * createdAt : 2015-08-06T07:15:52.65Z
-             * desc : 类似Link Bubble的悬浮式操作设计
-             * publishedAt : 2015-08-07T03:57:48.45Z
-             * type : Android
-             * url : https://github.com/recruit-lifestyle/FloatingView
-             * used : true
-             * who : mthli
-             */
-
-            private String _id;
-            private String createdAt;
-            private String desc;
-            private String publishedAt;
-            private String type;
-            private String url;
-            private boolean used;
-            private String who;
-
-            public String get_id() {
-                return _id;
-            }
-
-            public void set_id(String _id) {
-                this._id = _id;
-            }
-
-            public String getCreatedAt() {
-                return createdAt;
-            }
-
-            public void setCreatedAt(String createdAt) {
-                this.createdAt = createdAt;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public String getPublishedAt() {
-                return publishedAt;
-            }
-
-            public void setPublishedAt(String publishedAt) {
-                this.publishedAt = publishedAt;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public boolean isUsed() {
-                return used;
-            }
-
-            public void setUsed(boolean used) {
-                this.used = used;
-            }
-
-            public String getWho() {
-                return who;
-            }
-
-            public void setWho(String who) {
-                this.who = who;
-            }
+        public String getUrl() {
+            return url;
         }
 
-        public static class IOSBean {
-            /**
-             * _id : 56cc6d1d421aa95caa707769
-             * createdAt : 2015-08-07T01:32:51.588Z
-             * desc : LLVM 简介
-             * publishedAt : 2015-08-07T03:57:48.70Z
-             * type : iOS
-             * url : http://adriansampson.net/blog/llvm.html
-             * used : true
-             * who : CallMeWhy
-             */
-
-            private String url;
-            private boolean used;
-            private String who;
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public boolean isUsed() {
-                return used;
-            }
-
-            public void setUsed(boolean used) {
-                this.used = used;
-            }
-
-            public String getWho() {
-                return who;
-            }
-
-            public void setWho(String who) {
-                this.who = who;
-            }
+        public void setUrl(String url) {
+            this.url = url;
         }
 
-        public static class 休息视频Bean {
-            /**
-             * _id : 56cc6d23421aa95caa707c68
-             * createdAt : 2015-08-06T13:06:17.211Z
-             * desc : 听到就心情大好的歌，简直妖魔哈哈哈哈哈，原地址
-             http://v.youku.com/v_show/id_XMTQxODA5NDM2.html
-             * publishedAt : 2015-08-07T03:57:48.104Z
-             * type : 休息视频
-             * url : http://www.zhihu.com/question/21778055/answer/19905413?utm_source=weibo&utm_medium=weibo_share&utm_content=share_answer&utm_campaign=share_button
-             * used : true
-             * who : lxxself
-             */
-
-            private String _id;
-            private String createdAt;
-            private String desc;
-            private String publishedAt;
-            private String type;
-            private String url;
-            private boolean used;
-            private String who;
-
-            public String get_id() {
-                return _id;
-            }
-
-            public void set_id(String _id) {
-                this._id = _id;
-            }
-
-            public String getCreatedAt() {
-                return createdAt;
-            }
-
-            public void setCreatedAt(String createdAt) {
-                this.createdAt = createdAt;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public String getPublishedAt() {
-                return publishedAt;
-            }
-
-            public void setPublishedAt(String publishedAt) {
-                this.publishedAt = publishedAt;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public boolean isUsed() {
-                return used;
-            }
-
-            public void setUsed(boolean used) {
-                this.used = used;
-            }
-
-            public String getWho() {
-                return who;
-            }
-
-            public void setWho(String who) {
-                this.who = who;
-            }
+        public boolean isUsed() {
+            return used;
         }
 
-        public static class 拓展资源Bean {
-            /**
-             * _id : 56cc6d23421aa95caa707bdf
-             * createdAt : 2015-08-07T01:36:06.932Z
-             * desc : Display GitHub code in tree format
-             * publishedAt : 2015-08-07T03:57:48.81Z
-             * type : 拓展资源
-             * url : https://github.com/buunguyen/octotree
-             * used : true
-             * who : lxxself
-             */
-
-            private String _id;
-            private String createdAt;
-            private String desc;
-            private String publishedAt;
-            private String type;
-            private String url;
-            private boolean used;
-            private String who;
-
-            public String get_id() {
-                return _id;
-            }
-
-            public void set_id(String _id) {
-                this._id = _id;
-            }
-
-            public String getCreatedAt() {
-                return createdAt;
-            }
-
-            public void setCreatedAt(String createdAt) {
-                this.createdAt = createdAt;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public String getPublishedAt() {
-                return publishedAt;
-            }
-
-            public void setPublishedAt(String publishedAt) {
-                this.publishedAt = publishedAt;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public boolean isUsed() {
-                return used;
-            }
-
-            public void setUsed(boolean used) {
-                this.used = used;
-            }
-
-            public String getWho() {
-                return who;
-            }
-
-            public void setWho(String who) {
-                this.who = who;
-            }
+        public void setUsed(boolean used) {
+            this.used = used;
         }
 
-        public static class 瞎推荐Bean {
-            /**
-             * _id : 56cc6d23421aa95caa707bd0
-             * createdAt : 2015-08-07T01:52:30.267Z
-             * desc : 程序员的电台FmM，这个页面chrome插件有问题啊哭，我写了回删除不了啊
-             * publishedAt : 2015-08-07T03:57:48.84Z
-             * type : 瞎推荐
-             * url : https://cmd.fm/
-             * used : true
-             * who : lxxself
-             */
-
-            private String _id;
-            private String createdAt;
-            private String desc;
-            private String publishedAt;
-            private String type;
-            private String url;
-            private boolean used;
-            private String who;
-
-            public String get_id() {
-                return _id;
-            }
-
-            public void set_id(String _id) {
-                this._id = _id;
-            }
-
-            public String getCreatedAt() {
-                return createdAt;
-            }
-
-            public void setCreatedAt(String createdAt) {
-                this.createdAt = createdAt;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public String getPublishedAt() {
-                return publishedAt;
-            }
-
-            public void setPublishedAt(String publishedAt) {
-                this.publishedAt = publishedAt;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public boolean isUsed() {
-                return used;
-            }
-
-            public void setUsed(boolean used) {
-                this.used = used;
-            }
-
-            public String getWho() {
-                return who;
-            }
-
-            public void setWho(String who) {
-                this.who = who;
-            }
+        public String getWho() {
+            return who;
         }
 
-        public static class 福利Bean {
-            /**
-             * _id : 56cc6d23421aa95caa707c52
-             * createdAt : 2015-08-07T01:21:06.112Z
-             * desc : 8.7——（1）
-             * publishedAt : 2015-08-07T03:57:47.310Z
-             * type : 福利
-             * url : http://ww2.sinaimg.cn/large/7a8aed7bgw1eutscfcqtcj20dw0i0q4l.jpg
-             * used : true
-             * who : 张涵宇
-             */
+        public void setWho(String who) {
+            this.who = who;
+        }
 
-            private String _id;
-            private String createdAt;
-            private String desc;
-            private String publishedAt;
-            private String type;
-            private String url;
-            private boolean used;
-            private String who;
+        public List<String> getImages() {
+            return images;
+        }
 
-            public String get_id() {
-                return _id;
-            }
-
-            public void set_id(String _id) {
-                this._id = _id;
-            }
-
-            public String getCreatedAt() {
-                return createdAt;
-            }
-
-            public void setCreatedAt(String createdAt) {
-                this.createdAt = createdAt;
-            }
-
-            public String getDesc() {
-                return desc;
-            }
-
-            public void setDesc(String desc) {
-                this.desc = desc;
-            }
-
-            public String getPublishedAt() {
-                return publishedAt;
-            }
-
-            public void setPublishedAt(String publishedAt) {
-                this.publishedAt = publishedAt;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public boolean isUsed() {
-                return used;
-            }
-
-            public void setUsed(boolean used) {
-                this.used = used;
-            }
-
-            public String getWho() {
-                return who;
-            }
-
-            public void setWho(String who) {
-                this.who = who;
-            }
+        public void setImages(List<String> images) {
+            this.images = images;
         }
     }
 }
