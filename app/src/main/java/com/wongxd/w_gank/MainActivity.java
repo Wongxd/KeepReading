@@ -15,9 +15,8 @@ import android.view.WindowManager;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wongxd.w_gank.base.BasePresenterActivity;
-import com.wongxd.w_gank.base.rx.RxEventCodeType;
+import com.wongxd.w_gank.base.rx.Subscribe;
 import com.wongxd.w_gank.presenter.aty.ZhiHuActivity;
 import com.wongxd.w_gank.presenter.fgt.GankAndroidFragment;
 import com.wongxd.w_gank.presenter.fgt.GankMeiZiFragment;
@@ -25,7 +24,7 @@ import com.wongxd.w_gank.utils.SystemUtils;
 import com.wongxd.w_gank.utils.ToastUtil;
 import com.wongxd.w_gank.vu.MainVu;
 
-import java.util.Calendar;
+import static com.wongxd.w_gank.base.rx.RxEventCodeType.DRAWLAYOUT_ITEM_CLICK;
 
 public class MainActivity extends BasePresenterActivity<MainVu> {
 
@@ -42,6 +41,7 @@ public class MainActivity extends BasePresenterActivity<MainVu> {
         thisActivity = this;
         mContext = this.getApplicationContext();
 
+        bus.register(this);
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(false)
                 .setSwipeRelateEnable(true);
@@ -50,37 +50,20 @@ public class MainActivity extends BasePresenterActivity<MainVu> {
         initPremission();
 
         initFragment();
-        vu.setIbDatePickerAtyMainListener(v -> {
-            Calendar now = Calendar.getInstance();
-            DatePickerDialog datePickerDialog = DatePickerDialog
-                    .newInstance((view1, year, monthOfYear, dayOfMonth) -> {
-                                int tempMonth = monthOfYear + 1;
-                                String month = tempMonth < 10 ? "0" + tempMonth : tempMonth + "";
-                                String day = dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth + "";
-                                bus.post(RxEventCodeType.DATEPICKER_CLICK, year + month + day);
-                            },
-                            now.get(Calendar.YEAR),
-                            now.get(Calendar.MONTH),
-                            now.get(Calendar.DAY_OF_MONTH)
-                    );
-            datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-            datePickerDialog.show(getFragmentManager(), "Datepickerdialog");
-        });
 
-        initBus();
+
     }
 
-    private void initBus() {
-        disposableList.add(bus.toObservable(RxEventCodeType.DRAWLAYOUT_ITEM_CLICK, Integer.class).subscribe(integer -> {
-            switch (integer) {
-                case R.id.menu_nav_zhihu:
-                    startActivity(new Intent(thisActivity, ZhiHuActivity.class));
-                    break;
-                case R.id.menu_nav_share:
-                    SystemUtils.share(thisActivity, thisActivity.getString(R.string.app_name), "分享");
-                    break;
-            }
-        }));
+    @Subscribe(code = DRAWLAYOUT_ITEM_CLICK)
+    public void navItemClick(Integer id) {
+        switch (id) {
+            case R.id.menu_nav_zhihu:
+                startActivity(new Intent(thisActivity, ZhiHuActivity.class));
+                break;
+            case R.id.menu_nav_share:
+                SystemUtils.share(thisActivity, thisActivity.getString(R.string.app_name), "分享");
+                break;
+        }
     }
 
     private void initFragment() {
@@ -180,6 +163,7 @@ public class MainActivity extends BasePresenterActivity<MainVu> {
 
     @Override
     protected void onDestroyVu() {
+        bus.unRegister(this);
         super.onDestroyVu();
     }
 

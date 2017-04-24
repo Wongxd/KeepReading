@@ -26,6 +26,7 @@ import com.wongxd.w_gank.adapter.ZhiHuAdapter;
 import com.wongxd.w_gank.base.BasePresenterActivity;
 import com.wongxd.w_gank.base.aCache.AcacheUtil;
 import com.wongxd.w_gank.model.ZhiHuBean;
+import com.wongxd.w_gank.net.NetClient;
 import com.wongxd.w_gank.net.ZhiHuNetService;
 import com.wongxd.w_gank.presenter.aty.webview.ZhiHuWebviewActivity;
 import com.wongxd.w_gank.utils.NetworkAvailableUtils;
@@ -46,9 +47,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
@@ -59,6 +57,7 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
     private String lastDate;
     private List<Map<String, String>> popList = new ArrayList<>();
     private LinearLayoutManager layoutManager;
+    private ZhiHuNetService zhiHuNetService;
 
 
     @Override
@@ -67,11 +66,11 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
         thisActivity = this;
         mContext = this.getApplicationContext();
 
+
         SystemBarHelper.immersiveStatusBar(this);
         SystemBarHelper.setHeightAndPadding(this, vu.getToolbar());
 
         EasyRecyclerView rv = initRecycleView();
-
 
         simpleAdapter = new SimpleAdapter(mContext, popList, R.layout.pop_list_item, new String[]{"date"}
                 , new int[]{R.id.tv_pop_list_item});
@@ -79,9 +78,9 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
         lv = (ListView) view.findViewById(R.id.lv_pop_list);
         lv.setAdapter(simpleAdapter);
 
-
         initTitleClick();
 
+       zhiHuNetService = NetClient.getZhihuService();
 
         rv.setRefreshing(true, true);
 
@@ -231,13 +230,6 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
      */
     private void getZhiHuList() {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://news-at.zhihu.com/api/4/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        ZhiHuNetService zhiHuNetService = retrofit.create(ZhiHuNetService.class);
-
         Observable<ZhiHuBean> zhiHuBeanObservable = null;
         if (!NetworkAvailableUtils.isNetworkAvailable(mContext)) {
             zhiHuBeanObservable = Observable.create(new ObservableOnSubscribe<ZhiHuBean>() {
@@ -271,14 +263,11 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
                                 .description(t.getTitle())
                                 .image(t.getImage())
                                 .setScaleType(BaseSliderView.ScaleType.Fit)
-                                .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                                    @Override
-                                    public void onSliderClick(BaseSliderView slider) {
-                                        Intent i = new Intent(thisActivity, ZhiHuWebviewActivity.class);
-                                        i.putExtra("title", slider.getBundle().get("title") + "");
-                                        i.putExtra("id", slider.getBundle().getInt("id"));
-                                        startActivity(i);
-                                    }
+                                .setOnSliderClickListener(slider -> {
+                                    Intent i = new Intent(thisActivity, ZhiHuWebviewActivity.class);
+                                    i.putExtra("title", slider.getBundle().get("title") + "");
+                                    i.putExtra("id", slider.getBundle().getInt("id"));
+                                    startActivity(i);
                                 });
                         textSliderView.bundle(new Bundle());
                         textSliderView.getBundle()
@@ -354,14 +343,6 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
      * @param time
      */
     private void getZhiHuBeforeList(final String time) {
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://news-at.zhihu.com/api/4/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        ZhiHuNetService zhiHuNetService = retrofit.create(ZhiHuNetService.class);
-
 
         Observable<ZhiHuBean> zhiHuBeanObservable = null;
         if (!NetworkAvailableUtils.isNetworkAvailable(mContext)) {
@@ -456,8 +437,8 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
 
     @Override
     protected void onDestroyVu() {
-        super.onDestroyVu();
         vu.getSliderAtyMain().stopAutoCycle();
+        super.onDestroyVu();
     }
 
 

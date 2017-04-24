@@ -269,7 +269,7 @@ public class ArcNavigationView extends NavigationView {
     protected void dispatchDraw(Canvas canvas) {
         canvas.save();
 
-        canvas.clipPath(clipPath);;
+        canvas.clipPath(clipPath);
         super.dispatchDraw(canvas);
 
         canvas.restore();

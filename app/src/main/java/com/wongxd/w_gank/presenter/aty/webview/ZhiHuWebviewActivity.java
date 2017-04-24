@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.wongxd.w_gank.R;
 import com.wongxd.w_gank.base.BasePresenterActivity;
 import com.wongxd.w_gank.base.aCache.AcacheUtil;
+import com.wongxd.w_gank.net.NetClient;
 import com.wongxd.w_gank.net.ZhiHuNetService;
 import com.wongxd.w_gank.utils.NetworkAvailableUtils;
 import com.wongxd.w_gank.utils.SystemBarHelper;
@@ -20,9 +21,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ZhiHuWebviewActivity extends BasePresenterActivity<ZhiHuWebVu> {
 
@@ -63,12 +61,8 @@ public class ZhiHuWebviewActivity extends BasePresenterActivity<ZhiHuWebVu> {
 
 
         } else {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl("http://news-at.zhihu.com/api/4/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-            ZhiHuNetService zhiHuNetService = retrofit.create(ZhiHuNetService.class);
+
+            ZhiHuNetService zhiHuNetService = NetClient.getZhihuService();
 
             zhiHuNetService.getZhiHuDetail(id)
                     .subscribeOn(Schedulers.io())

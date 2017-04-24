@@ -16,8 +16,6 @@ public class RxEventCodeType {
     public static final int GANK_ANDROID_REQUEST_LOADMORE = 304;
     public static final int GANK_ANDROID_LOADMORE = 303;
 
-    public static final int DATEPICKER_CLICK = 305;
-
 
     public static final int GANK_MEIZI_REQUEST_REFRESH = 306;
     public static final int GANK_MEIZI_REFRESH = 307;

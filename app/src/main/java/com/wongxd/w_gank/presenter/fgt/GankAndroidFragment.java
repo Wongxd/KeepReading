@@ -1,11 +1,13 @@
 package com.wongxd.w_gank.presenter.fgt;
 
 import com.wongxd.w_gank.base.BasePresenterFragment;
-import com.wongxd.w_gank.base.aCache.ACache;
 import com.wongxd.w_gank.base.aCache.AcacheUtil;
 import com.wongxd.w_gank.base.rx.RxEventCodeType;
+import com.wongxd.w_gank.base.rx.Subscribe;
+import com.wongxd.w_gank.base.rx.ThreadMode;
 import com.wongxd.w_gank.model.GankBean;
 import com.wongxd.w_gank.net.GankService;
+import com.wongxd.w_gank.net.NetClient;
 import com.wongxd.w_gank.presenter.aty.GankWebActivity;
 import com.wongxd.w_gank.utils.NetworkAvailableUtils;
 import com.wongxd.w_gank.utils.ToastUtil;
@@ -18,9 +20,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by wxd1 on 2017/4/18.
@@ -42,68 +41,29 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
     protected void onBindVu() {
         super.onBindVu();
 
-        bus.toObservable(RxEventCodeType.GANK_ANDROID_REQUEST_REFRESH, Integer.class)
-                .subscribe(new Observer<Integer>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposableList.add(d);
-                    }
+        bus.register(this);
 
-                    @Override
-                    public void onNext(Integer page) {
-                        doGetList(false, page);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-        bus.toObservable(RxEventCodeType.GANK_ANDROID_REQUEST_LOADMORE, Integer.class)
-                .subscribe(new Observer<Integer>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposableList.add(d);
-                    }
-
-                    @Override
-                    public void onNext(Integer page) {
-                        doGetList(true, page);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-
-        disposableList.add(bus.toObservable(RxEventCodeType.GANK_ANDROID_VIEW_DETAIL, GankBean.ResultsBean.class).subscribe(resultsBean -> {
-            GankWebActivity.startWebActivity(getActivity(), resultsBean);
-        }));
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://gank.io/api/")
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        gankService = retrofit.create(GankService.class);
+        gankService = NetClient.getGankService();
 
         doGetList(false, 1);
 
     }
 
+
+    @Subscribe(code = RxEventCodeType.GANK_ANDROID_REQUEST_REFRESH, threadMode = ThreadMode.CURRENT)
+    void refresh(Integer page) {
+        doGetList(false, page);
+    }
+
+    @Subscribe(code = RxEventCodeType.GANK_ANDROID_REQUEST_LOADMORE, threadMode = ThreadMode.CURRENT)
+    void loadMore(Integer page) {
+        doGetList(true, page);
+    }
+
+    @Subscribe(code = RxEventCodeType.GANK_ANDROID_VIEW_DETAIL, threadMode = ThreadMode.CURRENT)
+    void viewDetail(GankBean.ResultsBean resultsBean) {
+        GankWebActivity.startWebActivity(getActivity(), resultsBean);
+    }
 
     private void doGetList(boolean isLoadMore, int page) {
         Observable<GankBean> observable;
@@ -113,7 +73,7 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
 
                 GankBean info = (GankBean) AcacheUtil.getDefault(getContext(), AcacheUtil.GankAndroidCache).getAsObject(page + "");
                 if (null == info) {
-                    getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), page==1?"无网络且无缓存数据":"无网络，不可获取网络数据"));
+                    getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), page == 1 ? "无网络且无缓存数据" : "无网络，不可获取网络数据"));
                     e.onError(new Throwable("nodata"));
                 } else {
                     getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), "无网络，已读取缓存"));
@@ -131,7 +91,7 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
                         throw new Exception("werror");
                     }
                     AcacheUtil.getDefault(getContext(), AcacheUtil.GankAndroidCache)
-                            .put(page + "", gankBean, 8 * ACache.TIME_HOUR);
+                            .put(page + "", gankBean);
                     return gankBean.getResults();
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -170,5 +130,11 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
     @Override
     protected void lazyLoad() {
 
+    }
+
+    @Override
+    protected void onDestroyVu() {
+        bus.unRegister(this);
+        super.onDestroyVu();
     }
 }

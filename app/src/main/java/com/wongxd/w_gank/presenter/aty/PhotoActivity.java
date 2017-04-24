@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -36,6 +37,8 @@ public class PhotoActivity extends BaseSwipeActivity implements View.OnClickList
     ImageView btnBack;
     @BindView(R.id.btn_save)
     ImageView btnSave;
+    @BindView(R.id.pb_loadimg_aty_photo)
+    ProgressBar pbLoadimgAtyPhoto;
 
     private String mUrl;
     private Bitmap mBitmap;
@@ -59,7 +62,7 @@ public class PhotoActivity extends BaseSwipeActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo);
+        setContentView(R.layout.aty_photo);
         ButterKnife.bind(this);
         thisActivity = this;
         mContext = this.getApplicationContext();
@@ -77,6 +80,7 @@ public class PhotoActivity extends BaseSwipeActivity implements View.OnClickList
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        pbLoadimgAtyPhoto.setVisibility(View.GONE);
                         meiziImage.setImageBitmap(resource);
                         mBitmap = resource;
                     }

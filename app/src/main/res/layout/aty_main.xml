@@ -40,14 +40,6 @@
                     android:layout_centerInParent="true"
                     android:textColor="@color/white" />
 
-                <ImageButton
-                    android:id="@+id/ib_date_picker_aty_main"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/ic_today_white_36dp" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
@@ -132,8 +124,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
-        app:arc_cropDirection="cropInside"
-        app:arc_width="100dp"
+        app:arc_cropDirection="cropOutside"
+        app:arc_width="50dp"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />
 

@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -53,8 +52,6 @@ public class MainVu implements Vu, NavigationView.OnNavigationItemSelectedListen
     FadingTextView tvTitleAtyMain;
     @BindView(R.id.fl_content_aty_main)
     FrameLayout flContentAtyMain;
-    @BindView(R.id.ib_date_picker_aty_main)
-    ImageButton ibDatePickerAtyMain;
     @BindView(R.id.nav_aty_main)
     ArcNavigationView navAtyMain;
     @BindView(R.id.drawer_aty_main)
@@ -73,7 +70,7 @@ public class MainVu implements Vu, NavigationView.OnNavigationItemSelectedListen
 
     @Override
     public void init(LayoutInflater inflater, ViewGroup container, RxBus rxBus, CompositeDisposable compositeDisposable) {
-        view = inflater.inflate(R.layout.activity_main, container, false);
+        view = inflater.inflate(R.layout.aty_main, container, false);
         ButterKnife.bind(this, view);
         this.rxBus = rxBus;
         this.disposableList = compositeDisposable;
@@ -105,7 +102,6 @@ public class MainVu implements Vu, NavigationView.OnNavigationItemSelectedListen
                     toggleDrawer();
                 });
         compositeDisposable.add(toggleDrawerDisposble);
-
 
     }
 
@@ -167,11 +163,6 @@ public class MainVu implements Vu, NavigationView.OnNavigationItemSelectedListen
 
     public void setFragmentSwitchListener(FragmentSwitchListener fragmentSwitchListener) {
         this.fragmentSwitchListener = fragmentSwitchListener;
-    }
-
-    public void setIbDatePickerAtyMainListener(View.OnClickListener l) {
-        ibDatePickerAtyMain.setOnClickListener(l);
-
     }
 
 
