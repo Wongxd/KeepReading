@@ -30,11 +30,41 @@ public class FloableRxBus {
         mBus = PublishProcessor.create().toSerialized();
     }
 
+
+    // 单例RxBus
+//    public static FloableRxBus getDefault() {
+//        return Holder.RX_BUS;
+//    }
+
+//    private static class Holder {
+//        private static final FloableRxBus RX_BUS = new FloableRxBus();
+//    }
+
+
+    private static volatile FloableRxBus defaultInstance;
+
     // 单例RxBus
     public static FloableRxBus getDefault() {
-        return Holder.RX_BUS;
+        FloableRxBus floableRxBus = defaultInstance;
+        if (defaultInstance == null) {
+            synchronized (FloableRxBus.class) {
+                floableRxBus = defaultInstance;
+                if (defaultInstance == null) {
+                    floableRxBus = new FloableRxBus();
+                    defaultInstance = floableRxBus;
+                }
+            }
+        }
+        return floableRxBus;
     }
 
+
+    /**
+     * 为了防止内存泄漏，安全退出。
+     */
+    public void safeExit() {
+        defaultInstance = null;
+    }
 
     /**
      * 提供了一个新的事件,单一类型
@@ -114,10 +144,6 @@ public class FloableRxBus {
         return mBus.hasSubscribers();
     }
 
-
-    private static class Holder {
-        private static final FloableRxBus RX_BUS = new FloableRxBus();
-    }
 
 
 

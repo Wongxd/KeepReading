@@ -36,7 +36,7 @@ public abstract class BasePresenterFragment<V extends Vu> extends Fragment {
         View view = null;
         try {
             vu = getVuClass().newInstance();
-            vu.init(inflater, container,bus,disposableList);
+            vu.init(inflater, container, bus, disposableList);
             onBindVu();
             view = vu.getView();
         } catch (java.lang.InstantiationException e) {
@@ -52,6 +52,7 @@ public abstract class BasePresenterFragment<V extends Vu> extends Fragment {
         disposableList.clear();//取消
         onDestroyVu();
         vu = null;
+        bus = null;
         super.onDestroyView();
     }
 

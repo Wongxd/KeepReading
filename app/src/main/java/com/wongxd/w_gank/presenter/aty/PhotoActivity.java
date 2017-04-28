@@ -100,12 +100,12 @@ public class PhotoActivity extends BaseSwipeActivity implements View.OnClickList
                         .setImageSaveListener(new ImageSave.ImageSaveListener() {
                             @Override
                             public void onSuccess() {
-                                ToastUtil.Toast(mContext, "保存成功");
+                                ToastUtil.CustomToast(mContext, "保存成功");
                             }
 
                             @Override
                             public void onError() {
-                                ToastUtil.Toast(mContext, "保存失败");
+                                ToastUtil.CustomToast(mContext, "保存失败");
                             }
                         });
                 break;

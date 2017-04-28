@@ -39,7 +39,7 @@ public class MainActivity extends BasePresenterActivity<MainVu> {
     protected void onBindVu() {
         super.onBindVu();
         thisActivity = this;
-        mContext = this.getApplicationContext();
+        mContext = getApplicationContext();
 
         bus.register(this);
         SwipeBackHelper.getCurrentPage(this)
@@ -138,7 +138,7 @@ public class MainActivity extends BasePresenterActivity<MainVu> {
         if (thisBackTime - lastBackTime < 800) {
             return super.handleBackPressed();
         } else {
-            ToastUtil.Toast(mContext, "再次点击，退出程序。");
+            ToastUtil.CustomToast(mContext, "再次点击，退出程序。");
         }
         lastBackTime = System.currentTimeMillis();
         return !super.handleBackPressed();
@@ -163,7 +163,9 @@ public class MainActivity extends BasePresenterActivity<MainVu> {
 
     @Override
     protected void onDestroyVu() {
+        mContext=null;
         bus.unRegister(this);
+        bus.safeExit();
         super.onDestroyVu();
     }
 

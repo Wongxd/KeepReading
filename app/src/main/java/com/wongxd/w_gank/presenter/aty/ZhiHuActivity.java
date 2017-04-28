@@ -235,7 +235,7 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
             zhiHuBeanObservable = Observable.create(new ObservableOnSubscribe<ZhiHuBean>() {
                 @Override
                 public void subscribe(@NonNull ObservableEmitter<ZhiHuBean> e) throws Exception {
-                    runOnUiThread(() -> ToastUtil.Toast(mContext, "无网络，已智能读取缓存"));
+                    runOnUiThread(() -> ToastUtil.CustomToast(mContext, "无网络，已智能读取缓存"));
                     ZhiHuBean zhiHuBean = (ZhiHuBean) AcacheUtil.getDefault(mContext, AcacheUtil.ZhiHuCache).getAsObject("laset");
                     e.onNext(zhiHuBean);
                     e.onComplete();
@@ -325,7 +325,7 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.Toast(thisActivity, "msg: " + e.getMessage());
+                        ToastUtil.CustomToast(thisActivity, "msg: " + e.getMessage());
                         vu.getRecycleView().showError();
                     }
 
@@ -355,7 +355,7 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
                     if (zhiHuBean != null
                             &&
                             !zhiHuBean.getDate().equals(time)) {
-                        runOnUiThread(() -> ToastUtil.Toast(mContext, "无网络，已智能读取缓存"));
+                        runOnUiThread(() -> ToastUtil.CustomToast(mContext, "无网络，已智能读取缓存"));
                         e.onNext(zhiHuBean);
                         e.onComplete();
                     } else {
@@ -414,7 +414,7 @@ public class ZhiHuActivity extends BasePresenterActivity<ZhiHuMainVu> {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtil.Toast(thisActivity, "msg: " + e.getMessage());
+                        ToastUtil.CustomToast(thisActivity, "msg: " + e.getMessage());
 //                        zhiHuAdapter.pauseMore();
                         //添加空，可以显示没有更多
                         zhiHuAdapter.add(null);

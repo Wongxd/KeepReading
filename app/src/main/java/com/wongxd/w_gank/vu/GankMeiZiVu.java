@@ -112,8 +112,8 @@ public class GankMeiZiVu implements Vu, RecyclerArrayAdapter.OnLoadMoreListener,
             }
         });
 
+        rvFgtGankMeizi.showProgress();
         rvFgtGankMeizi.setRefreshListener(this);
-
     }
 
 
@@ -129,6 +129,7 @@ public class GankMeiZiVu implements Vu, RecyclerArrayAdapter.OnLoadMoreListener,
     }
 
     public void processRefresh(List<MeiZiBean.ResultsBean> list, boolean isError) {
+        rvFgtGankMeizi.showRecycler();
         adapter.clear();
         if (isError) {
             adapter.pauseMore();

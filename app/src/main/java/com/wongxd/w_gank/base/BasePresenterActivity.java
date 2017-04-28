@@ -24,7 +24,7 @@ public abstract class BasePresenterActivity<V extends Vu> extends BaseSwipeActiv
         bus = RxBus.getDefault();
         try {
             vu = getVuClass().newInstance();
-            vu.init(getLayoutInflater(), null,bus,disposableList);
+            vu.init(getLayoutInflater(), null, bus, disposableList);
             setContentView(vu.getView());
             onBindVu();
         } catch (InstantiationException e) {
@@ -57,6 +57,7 @@ public abstract class BasePresenterActivity<V extends Vu> extends BaseSwipeActiv
         disposableList.clear();//取消
         onDestroyVu();
         vu = null;
+        bus = null;
         super.onDestroy();
     }
 
@@ -78,7 +79,6 @@ public abstract class BasePresenterActivity<V extends Vu> extends BaseSwipeActiv
 
     protected void onDestroyVu() {
     }
-
 
 
 }

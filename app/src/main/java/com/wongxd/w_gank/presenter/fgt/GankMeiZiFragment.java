@@ -59,17 +59,17 @@ public class GankMeiZiFragment extends BasePresenterFragment<GankMeiZiVu> {
     }
 
     @Subscribe(code = RxEventCodeType.GANK_MEIZI_REQUEST_REFRESH)
-    void refresh(Integer page) {
+    public void refresh(Integer page) {
         doGetList(false, page);
     }
 
     @Subscribe(code = RxEventCodeType.GANK_MEIZI_REQUEST_LOADMORE)
-    void loadMore(Integer page) {
+    public void loadMore(Integer page) {
         doGetList(true, page);
     }
 
     @Subscribe(code = RxEventCodeType.GANK_MEIZI_VIEW_BIGIMG)
-    void viedBigImg(GankMeiZiVu.ImageBean s) {
+    public void viedBigImg(GankMeiZiVu.ImageBean s) {
         PhotoActivity.startActivity((AppCompatActivity) getActivity(), s.getImgUrl(), s.getIv());
     }
 
@@ -80,10 +80,10 @@ public class GankMeiZiFragment extends BasePresenterFragment<GankMeiZiVu> {
             observable = Observable.create(e -> {
                 MeiZiBean info = (MeiZiBean) AcacheUtil.getDefault(getContext(), AcacheUtil.GankMeiZiCache).getAsObject(page + "");
                 if (null == info) {
-                    getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), page == 1 ? "无网络且无缓存数据" : "无网络，不可获取网络数据"));
+                    getActivity().runOnUiThread(() -> ToastUtil.CustomToast(getContext(), page == 1 ? "无网络且无缓存数据" : "无网络，不可获取网络数据"));
                     e.onError(new Throwable("nodata"));
                 } else {
-                    getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), "无网络，已读取缓存"));
+                    getActivity().runOnUiThread(() -> ToastUtil.CustomToast(getContext(), "无网络，已读取缓存"));
                     e.onNext(info);
                 }
             });
@@ -103,7 +103,7 @@ public class GankMeiZiFragment extends BasePresenterFragment<GankMeiZiVu> {
                 .subscribe(new Observer<List<MeiZiBean.ResultsBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposableList.add(d);
                     }
 
                     @Override

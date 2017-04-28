@@ -168,23 +168,7 @@ public class MainVu implements Vu, NavigationView.OnNavigationItemSelectedListen
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-//        switch (item.getItemId()) {
-//            case R.id.menu_nav_camera:
-//                break;
-//            case R.id.menu_nav_gallery:
-//
-//                break;
-//            case R.id.menu_nav_send:
-//
-//                break;
-//            case R.id.menu_nav_share:
-//
-//                break;
-//        }
-
         rxBus.post(RxEventCodeType.DRAWLAYOUT_ITEM_CLICK, item.getItemId());
-
         drawerAtyMain.postDelayed(() -> drawerAtyMain.closeDrawer(GravityCompat.START), 100);
         return true;
     }

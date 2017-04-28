@@ -46,22 +46,21 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
         gankService = NetClient.getGankService();
 
         doGetList(false, 1);
-
     }
 
 
     @Subscribe(code = RxEventCodeType.GANK_ANDROID_REQUEST_REFRESH, threadMode = ThreadMode.CURRENT)
-    void refresh(Integer page) {
+    public void refresh(Integer page) {
         doGetList(false, page);
     }
 
     @Subscribe(code = RxEventCodeType.GANK_ANDROID_REQUEST_LOADMORE, threadMode = ThreadMode.CURRENT)
-    void loadMore(Integer page) {
+    public void loadMore(Integer page) {
         doGetList(true, page);
     }
 
     @Subscribe(code = RxEventCodeType.GANK_ANDROID_VIEW_DETAIL, threadMode = ThreadMode.CURRENT)
-    void viewDetail(GankBean.ResultsBean resultsBean) {
+    public void viewDetail(GankBean.ResultsBean resultsBean) {
         GankWebActivity.startWebActivity(getActivity(), resultsBean);
     }
 
@@ -73,10 +72,10 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
 
                 GankBean info = (GankBean) AcacheUtil.getDefault(getContext(), AcacheUtil.GankAndroidCache).getAsObject(page + "");
                 if (null == info) {
-                    getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), page == 1 ? "无网络且无缓存数据" : "无网络，不可获取网络数据"));
+                    getActivity().runOnUiThread(() -> ToastUtil.CustomToast(getContext(), page == 1 ? "无网络且无缓存数据" : "无网络，不可获取网络数据"));
                     e.onError(new Throwable("nodata"));
                 } else {
-                    getActivity().runOnUiThread(() -> ToastUtil.Toast(getContext(), "无网络，已读取缓存"));
+                    getActivity().runOnUiThread(() -> ToastUtil.CustomToast(getContext(), "无网络，已读取缓存"));
                     e.onNext(info);
                 }
 
@@ -98,11 +97,12 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
                 .subscribe(new Observer<List<GankBean.ResultsBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposableList.add(d);
                     }
 
                     @Override
                     public void onNext(List<GankBean.ResultsBean> list) {
+                        if (null == vu) return;
                         if (isLoadMore) {
                             vu.processLoadMore(list, false);
                         } else {
@@ -112,6 +112,7 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
 
                     @Override
                     public void onError(Throwable e) {
+                        if (null == vu) return;
                         if (isLoadMore) {
                             vu.processLoadMore(null, true);
                         } else {
@@ -124,6 +125,7 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
 
                     }
                 });
+
     }
 
 

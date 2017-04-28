@@ -47,15 +47,13 @@
             android:id="@+id/fl_content_aty_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="0.5dp"
             android:layout_weight="1" />
 
-
         <!--bootm-->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
             android:background="@color/wheat" />
 
         <LinearLayout
@@ -70,9 +68,10 @@
                 <!--按钮-->
                 <LinearLayout
                     android:id="@+id/ll_bottom_android"
-                    android:layout_width="40dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
+                    android:background="?android:attr/selectableItemBackground"
                     android:orientation="vertical">
 
                     <com.wongxd.w_gank.custom.switchIconView.SwitchIconView
@@ -88,8 +87,10 @@
             </RelativeLayout>
 
             <View
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_width="1dp"
-                android:layout_height="35dp"
+                android:layout_height="match_parent"
                 android:background="@color/wheat" />
 
             <RelativeLayout
@@ -99,9 +100,10 @@
                 <!--按钮-->
                 <LinearLayout
                     android:id="@+id/ll_bottom_meizi"
-                    android:layout_width="40dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerInParent="true"
+                    android:background="?android:attr/selectableItemBackground"
                     android:orientation="vertical">
 
                     <com.wongxd.w_gank.custom.switchIconView.SwitchIconView
@@ -116,6 +118,8 @@
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
+
+
     </LinearLayout>
 
     <com.wongxd.w_gank.custom.arcNavigationView.ArcNavigationView

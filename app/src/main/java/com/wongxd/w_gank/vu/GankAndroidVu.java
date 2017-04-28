@@ -97,6 +97,7 @@ public class GankAndroidVu implements Vu, RecyclerArrayAdapter.OnLoadMoreListene
             }
         });
 
+        rvFgtGankAndroid.showProgress();
         rvFgtGankAndroid.setRefreshListener(this);
 
     }
@@ -114,6 +115,7 @@ public class GankAndroidVu implements Vu, RecyclerArrayAdapter.OnLoadMoreListene
     }
 
     public void processRefresh(List<GankBean.ResultsBean> list, boolean isError) {
+        rvFgtGankAndroid.showRecycler();
         adapter.clear();
         if (isError) {
             adapter.pauseMore();

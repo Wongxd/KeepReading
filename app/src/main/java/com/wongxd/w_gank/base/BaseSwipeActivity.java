@@ -67,7 +67,7 @@ public class BaseSwipeActivity extends BaseActivity {
         netObservable.observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     if (!s.equals("WIFI连接")) {
-                        ToastUtil.Toast(getApplicationContext(), s);
+                        ToastUtil.CustomToast(getApplicationContext(), s);
                     }
                 });
     }
@@ -82,6 +82,7 @@ public class BaseSwipeActivity extends BaseActivity {
     protected void onDestroy() {
         netObservable.unsubscribeOn(AndroidSchedulers.mainThread());
         this.unregisterReceiver(netCheckReceive);
+        netObservable=null;
         super.onDestroy();
         SwipeBackHelper.onDestroy(this);
     }

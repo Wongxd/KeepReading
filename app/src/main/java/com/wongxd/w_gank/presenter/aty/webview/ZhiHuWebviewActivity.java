@@ -47,9 +47,9 @@ public class ZhiHuWebviewActivity extends BasePresenterActivity<ZhiHuWebVu> {
         if (!NetworkAvailableUtils.isNetworkAvailable(mContext)) {
             String s = AcacheUtil.getDefault(mContext, AcacheUtil.StringCache).getAsString(id + "");
             if (s == null || TextUtils.isEmpty(s)) {
-                ToastUtil.Toast(mContext, "没有相关缓存");
+                ToastUtil.CustomToast(mContext, "没有相关缓存");
             } else {
-                ToastUtil.Toast(mContext, "无网络，已读取缓存");
+                ToastUtil.CustomToast(mContext, "无网络，已读取缓存");
             }
 
             vu.loadDataWithBaseUrl(parseString(s));

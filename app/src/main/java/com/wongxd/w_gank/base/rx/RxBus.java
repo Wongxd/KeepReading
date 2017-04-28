@@ -30,10 +30,37 @@ public class RxBus {
 
 
     // 单例RxBus
+//    public static RxBus getDefault() {
+//        return Holder.RX_BUS;
+//    }
+
+//    private static class Holder {
+//        private static final RxBus RX_BUS = new RxBus();
+//    }
+
+    private static volatile RxBus defaultInstance;
+
+    // 单例RxBus
     public static RxBus getDefault() {
-        return Holder.RX_BUS;
+        RxBus rxBus = defaultInstance;
+        if (defaultInstance == null) {
+            synchronized (RxBus.class) {
+                rxBus = defaultInstance;
+                if (defaultInstance == null) {
+                    rxBus = new RxBus();
+                    defaultInstance = rxBus;
+                }
+            }
+        }
+        return rxBus;
     }
 
+    /**
+     * 为了防止内存泄漏，安全退出。
+     */
+    public void safeExit() {
+        defaultInstance = null;
+    }
 
     /**
      * 提供了一个新的事件,单一类型
@@ -111,14 +138,10 @@ public class RxBus {
         return mBus.hasObservers();
     }
 
-    private static class Holder {
-        private static final RxBus RX_BUS = new RxBus();
-    }
-
 
     //###########################################-----添加注解方式-----######################################################################
 
-    private Map<Class, List<Disposable>> disposablesByEventType = new HashMap<>();
+    private Map<Class, List<Disposable>> disposablesByEventType = new HashMap<>();//取消
 
 
     private Map<Object, List<Class>> eventTypesBySubscriber = new HashMap<>();
@@ -317,7 +340,7 @@ public class RxBus {
 
 
     /**
-     * subscriptions unsubscribe
+     * Disposable disposable.dispose()
      *
      * @param eventType
      */
