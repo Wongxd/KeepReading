@@ -2,6 +2,7 @@ package com.wongxd.w_gank.base.rx;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 public class SubscriberMethod {
     public Method method;
@@ -26,7 +27,11 @@ public class SubscriberMethod {
      */
     public void invoke(Object o) {
         try {
+            if (!Modifier.isPublic(method.getModifiers())) {
+                method.setAccessible(true);  // not public method
+            }
             method.invoke(subscriber, o);
+
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
