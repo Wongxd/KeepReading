@@ -50,17 +50,17 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
 
 
     @Subscribe(code = RxEventCodeType.GANK_ANDROID_REQUEST_REFRESH, threadMode = ThreadMode.CURRENT)
-    public void refresh(Integer page) {
+     void refresh(Integer page) {
         doGetList(false, page);
     }
 
     @Subscribe(code = RxEventCodeType.GANK_ANDROID_REQUEST_LOADMORE, threadMode = ThreadMode.CURRENT)
-    public void loadMore(Integer page) {
+     void loadMore(Integer page) {
         doGetList(true, page);
     }
 
     @Subscribe(code = RxEventCodeType.GANK_ANDROID_VIEW_DETAIL, threadMode = ThreadMode.CURRENT)
-    public void viewDetail(GankBean.ResultsBean resultsBean) {
+    private void viewDetail(GankBean.ResultsBean resultsBean) {
         GankWebActivity.startWebActivity(getActivity(), resultsBean);
     }
 
@@ -77,6 +77,7 @@ public class GankAndroidFragment extends BasePresenterFragment<GankAndroidVu> {
                 } else {
                     getActivity().runOnUiThread(() -> ToastUtil.CustomToast(getContext(), "无网络，已读取缓存"));
                     e.onNext(info);
+                    e.onComplete();
                 }
 
             });

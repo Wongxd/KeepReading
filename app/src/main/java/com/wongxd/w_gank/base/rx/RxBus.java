@@ -144,10 +144,10 @@ public class RxBus {
     private Map<Class, List<Disposable>> disposablesByEventType = new HashMap<>();//取消
 
 
-    private Map<Object, List<Class>> eventTypesBySubscriber = new HashMap<>();
+    private Map<Object, List<Class>> eventTypesBySubscriber = new HashMap<>();//包含对于一个特定事件敏感的方法 的类的列表
 
 
-    private Map<Class, List<SubscriberMethod>> subscriberMethodByEventType = new HashMap<>();
+    private Map<Class, List<SubscriberMethod>> subscriberMethodByEventType = new HashMap<>(); //一个类中的所有的subscriber方法列表
 
 
     /**

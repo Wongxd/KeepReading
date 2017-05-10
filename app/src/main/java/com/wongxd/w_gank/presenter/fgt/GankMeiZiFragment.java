@@ -85,6 +85,7 @@ public class GankMeiZiFragment extends BasePresenterFragment<GankMeiZiVu> {
                 } else {
                     getActivity().runOnUiThread(() -> ToastUtil.CustomToast(getContext(), "无网络，已读取缓存"));
                     e.onNext(info);
+                    e.onComplete();
                 }
             });
 
